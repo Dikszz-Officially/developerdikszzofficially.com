@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Dikssz Officially</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00c8;
+            --neon-purple: #bc00ff;
+            --neon-red: #ff2d75;
+            --bg-dark: #0a0a1a;
+            --card-bg: rgba(15, 15, 35, 0.8);
+            --neon-glow-blue: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at 20% 20%, #1a0b2e, #0a0a1a 70%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-attachment: fixed;
+        }
+
+        /* Bintang dekoratif - fixed agar tidak repaint saat scroll */
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+            background-image:
+                radial-gradient(1.5px 1.5px at 10% 20%, var(--neon-blue), transparent),
+                radial-gradient(1px 1px at 80% 30%, var(--neon-pink), transparent),
+                radial-gradient(2px 2px at 50% 80%, var(--neon-purple), transparent),
+                radial-gradient(1px 1px at 30% 60%, var(--neon-blue), transparent),
+                radial-gradient(1.5px 1.5px at 90% 90%, var(--neon-pink), transparent);
+            background-size: 100% 100%;
+            animation: twinkle 6s ease-in-out infinite alternate;
+            will-change: opacity;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.3; }
+            to   { opacity: 0.7; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* ===== MENU GARIS TIGA ===== */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            font-size: 1.8rem;
+            color: var(--neon-blue);
+            text-shadow: var(--neon-glow-blue);
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(8px);
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--neon-blue);
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            will-change: transform;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 25px var(--neon-blue);
+            color: #fff;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -340px;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 10, 26, 0.96);
+            backdrop-filter: blur(15px);
+            border-right: 2px solid var(--neon-pink);
+            box-shadow: 5px 0 30px rgba(255, 0, 200, 0.25);
+            z-index: 999;
+            padding: 80px 20px 30px;
+            transition: left 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            will-change: left;
+        }
+
+        .sidebar.open { left: 0; }
+
+        .sidebar h3 {
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--neon-purple);
+            padding-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 40px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+            color: #eee;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            will-change: transform;
+        }
+
+        .social-item i {
+            font-size: 1.6rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .social-item.instagram i { color: #e1306c; text-shadow: 0 0 10px #e1306c; }
+        .social-item.whatsapp i  { color: #25D366; text-shadow: 0 0 10px #25D366; }
+        .social-item.telegram i  { color: #0088cc; text-shadow: 0 0 10px #0088cc; }
+
+        .social-item:hover {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--neon-pink);
+            transform: translateX(6px);
+        }
+
+        .close-sidebar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.6rem;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.25s ease, color 0.25s ease;
+        }
+        .close-sidebar:hover { opacity: 1; color: var(--neon-pink); }
+
+        /* ===== HERO / JUDUL ===== */
+        .hero {
+            text-align: center;
+            padding: 2.5rem 1rem 1.5rem;
+            margin-top: 15px;
+        }
+
+        .hero .welcome {
+            font-size: 1.3rem;
+            letter-spacing: 8px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 25px rgba(0, 243, 255, 0.5);
+            font-weight: 300;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        .hero .website {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #fff, var(--neon-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 18px rgba(188, 0, 255, 0.55));
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        .hero .brand {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--neon-pink), #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 22px rgba(255, 0, 200, 0.6));
+            line-height: 1.2;
+        }
+
+        /* ===== FOTO PROFIL ===== */
+        .photo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0 1rem;
+        }
+
+        .photo-frame {
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            background: #111;
+            border: 4px solid var(--neon-blue);
+            box-shadow: 0 0 30px var(--neon-blue), 0 0 60px rgba(0, 243, 255, 0.25);
+            overflow: hidden;
+            position: relative;
+            transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+            will-change: transform;
+        }
+
+        .photo-frame:hover {
+            box-shadow: 0 0 40px var(--neon-pink), 0 0 80px rgba(255, 0, 200, 0.4);
+            border-color: var(--neon-pink);
+            transform: scale(1.02);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ===== IKATAN CINTA ===== */
+        .love-section {
+            margin-top: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .love-heart {
+            font-size: 1.8rem;
+            color: var(--neon-red);
+            text-shadow: 0 0 10px var(--neon-red), 0 0 25px rgba(255, 45, 117, 0.7);
+            animation: heartbeat 1.6s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25%      { transform: scale(1.18); }
+            50%      { transform: scale(0.97); }
+            75%      { transform: scale(1.12); }
+        }
+
+        .love-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-red), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 12px rgba(255, 45, 117, 0.6));
+            letter-spacing: 1px;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .love-sub {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.55);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* ===== GRID 2 KOLOM x 3 BARIS ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+            margin: 3rem 0 4rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            padding: 22px 20px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 12px 28px rgba(255, 0, 200, 0.2);
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .card h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .card p {
+            color: #bbb;
+            font-size: 0.88rem;
+            flex: 1;
+            margin-bottom: 12px;
+        }
+
+        .task-tag {
+            display: inline-block;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-size: 0.7rem;
+            padding: 3px 12px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            align-self: flex-start;
+        }
+
+        .card:nth-child(2) .card-icon { color: var(--neon-pink); text-shadow: 0 0 15px var(--neon-pink); }
+        .card:nth-child(3) .card-icon { color: var(--neon-purple); text-shadow: 0 0 15px var(--neon-purple); }
+        .card:nth-child(4) .card-icon { color: #ffaa00; text-shadow: 0 0 15px #ffaa00; }
+        .card:nth-child(5) .card-icon { color: #00ffaa; text-shadow: 0 0 15px #00ffaa; }
+        .card:nth-child(6) .card-icon { color: #ff5555; text-shadow: 0 0 15px #ff5555; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            font-size: 0.85rem;
+            color: #777;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer i { color: var(--neon-pink); }
+
+        /* ===== RESPONSIF ===== */
+        @media (max-width: 768px) {
+            .hero .welcome { font-size: 1rem; letter-spacing: 5px; }
+            .hero .website { font-size: 1.9rem; letter-spacing: 4px; }
+            .hero .brand { font-size: 1.7rem; }
+            .photo-frame { width: 170px; height: 170px; }
+            .love-text { font-size: 1.6rem; }
+            .menu-toggle { width: 50px; height: 50px; font-size: 1.5rem; }
+            .sidebar { width: 260px; padding-top: 70px; }
+            .cards-grid { gap: 15px; }
+            .card { padding: 18px 15px; }
+            .card h4 { font-size: 1.1rem; }
+            .card p { font-size: 0.8rem; }
+        }
+
+        @media (max-width: 420px) {
+            .cards-grid { gap: 12px; }
+            .card-icon { font-size: 1.8rem; }
+            .card { padding: 15px 12px; }
+        }
+
+        /* Kurangi animasi untuk pengguna yang prefer reduced motion (smoothness) */
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <!-- Menu Garis Tiga -->
+    <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Sidebar Sosial Media -->
+    <div class="sidebar" id="sidebar">
+        <div class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></div>
+        <h3><i class="fas fa-share-alt" style="margin-right: 8px;"></i> SOSIAL MEDIA</h3>
+        <div class="social-links">
+            <a href="https://www.instagram.com/dik_y3ss?exln=MXNqdm10OXA1dDVl" target="_blank" rel="noopener" class="social-item instagram">
+                <i class="fab fa-instagram"></i><span>Instagram</span>
+            </a>
+            <a href="https://whatsapp.com/channel/0029Vb9OT6d6RGJLdL9Hui3S" target="_blank" rel="noopener" class="social-item whatsapp">
+                <i class="fab fa-whatsapp"></i><span>Saluran WhatsApp</span>
+            </a>
+            <a href="https://t.me/dikszz_2" target="_blank" rel="noopener" class="social-item telegram">
+                <i class="fab fa-telegram-plane"></i><span>Telegram</span>
+            </a>
+        </div>
+        <p style="margin-top: auto; font-size: 0.75rem; color: #555; text-align: center; padding-top: 30px;">
+            <i class="fas fa-code"></i> Dikssz Official
+        </p>
+    </div>
+
+    <!-- Konten Utama -->
+    <div class="container">
+
+        <!-- Sambutan Baru -->
+        <div class="hero">
+            <div class="welcome">Welcome To</div>
+            <div class="website">Website</div>
+            <div class="brand">Dikssz Officially</div>
+        </div>
+
+        <!-- FOTO PROFIL (HANYA BISA DIEDIT DI KODE) -->
+        <div class="photo-area">
+            <div class="photo-frame">
+                <!--
+                    =====================================================
+                    GANTI FOTO PROFIL DI SINI:
+                    1. Taruh file foto di folder yang sama dengan file HTML ini,
+                       misalnya "foto-profil.jpg"
+                    2. Ganti src di bawah menjadi:  src="foto-profil.jpg"
+                    3. Atau gunakan URL gambar online.
+                    Tidak ada tombol upload di halaman — foto terkunci
+                    dan hanya bisa diganti lewat kodingan ini.
+                    =====================================================
+                -->
+                <img src="profil.png"
+                     alt="Foto Profil Dikssz"
+                     loading="lazy">
+            </div>
+
+            <!-- IKATAN CINTA -->
+            <div class="love-section">
+                <div class="love-heart"><i class="fas fa-heart"></i></div>
+                <div class="love-text">Dikssz &amp; Yesslyn</div>
+                <div class="love-sub">Ikatan Cinta</div>
+            </div>
+        </div>
+
+        <!-- Grid 2 kolom x 3 baris (tanpa judul tugas) -->
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon"><i class="fab fa-html5"></i></div>
+                <h4>HTML</h4>
+                <p>Struktur dasar website, form, tabel, semantic HTML, dan halaman profil.</p>
+                <span class="task-tag">✓ SELESAI</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fab fa-css3-alt"></i></div>
+                <h4>CSS</h4>
+                <p>Styling layout, flexbox, grid, animasi, dan desain responsif bertema neon.</p>
+                <span class="task-tag">✓ SELESAI</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fab fa-js"></i></div>
+                <h4>JavaScript</h4>
+                <p>Interaksi DOM, validasi form, kalkulator sederhana, dan efek dinamis.</p>
+                <span class="task-tag">✓ SELESAI</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fab fa-python"></i></div>
+                <h4>Python</h4>
+                <p>Program kalkulator, manajemen data sederhana, dan script pengolahan teks.</p>
+                <span class="task-tag">✓ SELESAI</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fab fa-php"></i></div>
+                <h4>PHP</h4>
+                <p>Form handling, koneksi database, CRUD dasar, dan halaman login sederhana.</p>
+                <span class="task-tag">✓ SELESAI</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-database"></i></div>
+                <h4>SQL</h4>
+                <p>Query SELECT, JOIN, manipulasi data, dan pembuatan database tugas akhir.</p>
+                <span class="task-tag">✓ SELESAI</span>
+            </div>
+        </div>
+
+        <footer>
+            <i class="fas fa-bolt"></i> Dikssz Officially — Portofolio Pemrograman <i class="fas fa-bolt"></i>
+        </footer>
+    </div>
+
+    <script>
+        // ==== MENU SIDEBAR (ringan & smooth) ====
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        menuToggle.addEventListener('click', () => sidebar.classList.add('open'));
+        closeSidebar.addEventListener('click', () => sidebar.classList.remove('open'));
+
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('open') &&
+                !sidebar.contains(e.target) &&
+                !menuToggle.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
